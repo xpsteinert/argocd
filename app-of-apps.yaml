@@ -13,7 +13,7 @@ spec:
             repoURL: https://kubernetes.github.io/dashboard/
             version: 5.0.5
           - name: reflector
-            chart: kube-reflector
+            chart: reflector
             repoURL: https://emberstack.github.io/helm-charts
             version: 6.1.47
 
