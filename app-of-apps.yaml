@@ -17,24 +17,25 @@ spec:
             repoURL: https://emberstack.github.io/helm-charts
             version: 0.4.0
 
-template:
-    metadata:
-      name: '{{name}}'
-    spec:
-      project: default
-      source:
-        repoURL: '{{repoURL}}'
-        targetRevision: '{{version}}'
-        chart: '{{chart}}'
-        helm:
-          valueFiles:
-            - values/{{name}}.yaml
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: '{{name}}'
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
+  template:
+      metadata:
+        name: '{{name}}'
+        namespace: argocd
+      spec:
+        project: default
+        source:
+          repoURL: '{{repoURL}}'
+          targetRevision: '{{version}}'
+          chart: '{{chart}}'
+          helm:
+            valueFiles:
+              - values/{{name}}.yaml
+        destination:
+          server: https://kubernetes.default.svc
+          namespace: '{{name}}'
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true
