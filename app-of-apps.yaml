@@ -23,13 +23,16 @@ spec:
         namespace: argocd
       spec:
         project: default
-        source:
-          repoURL: '{{repoURL}}'
-          targetRevision: '{{version}}'
-          chart: '{{chart}}'
-          helm:
-            valueFiles:
-              - /values/{{name}}.yaml
+        sources:
+          - repoURL: '{{repoURL}}'
+            targetRevision: '{{version}}'
+            chart: '{{chart}}'
+            helm:
+              valueFiles:
+                - $values/values/{{name}}.yaml
+          - repoURL: https://github.com/xpsteinert/argocd.git
+            targetRevision: main
+            ref: values
         destination:
           server: https://kubernetes.default.svc
           namespace: '{{name}}'
