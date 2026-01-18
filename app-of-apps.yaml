@@ -15,7 +15,7 @@ spec:
           - name: reflector
             chart: kube-reflector
             repoURL: https://emberstack.github.io/helm-charts
-            version: 0.4.0
+            version: 6.1.47
 
   template:
       metadata:
