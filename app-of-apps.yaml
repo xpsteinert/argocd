@@ -29,7 +29,7 @@ spec:
           chart: '{{chart}}'
           helm:
             valueFiles:
-              - ../values/{{name}}.yaml
+              - /values/{{name}}.yaml
         destination:
           server: https://kubernetes.default.svc
           namespace: '{{name}}'
