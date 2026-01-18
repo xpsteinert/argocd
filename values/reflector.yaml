@@ -1,0 +1,7 @@
+---
+replicaCount: 1
+
+serviceAccount:
+  create: true
+
+resources: {}

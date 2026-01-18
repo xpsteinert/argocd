@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-apps
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: kubernetes-dashboard
+            chart: kubernetes-dashboard
+            repoURL: https://kubernetes.github.io/dashboard/
+            version: 5.0.5
+          - name: reflector
+            chart: kube-reflector
+            repoURL: https://emberstack.github.io/helm-charts
+            version: 0.4.0
+
+template:
+    metadata:
+      name: '{{name}}'
+    spec:
+      project: default
+      source:
+        repoURL: '{{repoURL}}'
+        targetRevision: '{{version}}'
+        chart: '{{chart}}'
+        helm:
+          valueFiles:
+            - values/{{name}}.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{name}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
